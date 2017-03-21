@@ -153,4 +153,31 @@ public class CommaSeparatedValueTest {
 
 		assertEquals("Hash code is not correct!", expected, actual);
 	}
+
+	@Test
+	public void testContains_true() {
+		String target = "hello";
+
+		boolean result = sut.contains(target);
+
+		assertTrue("Finding target '" + target + "' is not correct!", result);
+	}
+
+	@Test
+	public void testContains_false() {
+		String target = "TDD";
+
+		boolean result = sut.contains(target);
+
+		assertFalse("Finding target '" + target + "' is not correct!", result);
+	}
+
+	@Test
+	public void testContains_with_null() {
+		String target = null;
+
+		boolean result = sut.contains(target);
+
+		assertFalse("Finding target '" + target + "' is not correct!", result);
+	}
 }
