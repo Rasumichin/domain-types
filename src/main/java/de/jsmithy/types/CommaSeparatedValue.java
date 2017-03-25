@@ -2,16 +2,19 @@ package de.jsmithy.types;
 
 import java.util.*;
 
+import net.jcip.annotations.Immutable;
+
 /**
  * 
  * @author Erik Lotz
  * @since 2017-03-19
  *
  */
+@Immutable
 public final class CommaSeparatedValue {
 
-	private List<String> values;
-	private String value;
+	private final List<String> values;
+	private final String value;
 
 	private CommaSeparatedValue(String aValue) {
 		value = aValue;
