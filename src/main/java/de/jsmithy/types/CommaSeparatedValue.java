@@ -17,18 +17,20 @@ import net.jcip.annotations.Immutable;
 @Immutable
 public final class CommaSeparatedValue {
 
+	private static final Character DEFAULT_SEPARATOR = Character.valueOf(',');
+
 	private final List<String> values;
 	private final String value;
 
 	private CommaSeparatedValue(String aValue) {
 		value = aValue;
-		values = splitIntoValues(aValue);
+		values = splitIntoValuesUsing(aValue, DEFAULT_SEPARATOR);
 	}
 
-	List<String> splitIntoValues(String aValue) {
+	List<String> splitIntoValuesUsing(String aValue, Character separator) {
 		List<String> separatedValues = new ArrayList<>();
 		if (!aValue.isEmpty()) {
-			String[] result = aValue.split(",");
+			String[] result = aValue.split(separator.toString());
 			separatedValues = Arrays.asList(result);
 		}
 
