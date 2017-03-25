@@ -5,6 +5,9 @@ import java.util.*;
 import net.jcip.annotations.Immutable;
 
 /**
+ * A simple domain type that holds a comma separated string value. The type is
+ * able to count values, check whether it contains a given element and test
+ * whether it matches a given pattern.
  * 
  * @author Erik Lotz
  * @since 2017-03-19
@@ -47,11 +50,14 @@ public final class CommaSeparatedValue {
 	}
 
 	/**
-	 * Return the number of separated values contained in the receiver.</br>
-	 * As an example: <code>
-	 *  CommaSeparatedValue csv = CommaSeparatedValue.newInstance("hello,world");
-	 *  csv.size() // return '2'
-	 * </code>
+	 * Answers the number of separated values contained in the receiver.</br>
+	 * Example:
+	 * <p>
+	 * <code>
+	 *   CommaSeparatedValue csv = CommaSeparatedValue.newInstance("hello,world");</br>
+	 *   csv.size() // return '2'
+	 *  </code>
+	 * </p>
 	 * 
 	 * @return An integer value >= 0 depending on the contained values.
 	 * 
@@ -60,10 +66,22 @@ public final class CommaSeparatedValue {
 		return values.size();
 	}
 
+	/**
+	 * Answers whether the contained value is empty.
+	 * 
+	 * @return 'true' or 'false'
+	 * 
+	 */
 	public boolean isEmpty() {
 		return getValue().isEmpty();
 	}
 
+	/**
+	 * Answers the string value which was passed to instantiate the receiver.
+	 * 
+	 * @return A string value. Might be empty, but never blank or 'null'.
+	 * 
+	 */
 	public String getValue() {
 		return value;
 	}
@@ -71,12 +89,15 @@ public final class CommaSeparatedValue {
 	/**
 	 * Answers whether the passed value is contained in the receiver. There is
 	 * no fuzzy logic while comparing the value to be found.</br>
-	 * As an example: <code>
-	 *  CommaSeparatedValue csv = CommaSeparatedValue.newInstance("hello,world");
-	 *  csv.contains("hello") // return 'true'
-	 *  csv.contains("Hello") // return 'false'
-	 *  csv.contains(null)    // return 'false'
-	 * </code>
+	 * Example:
+	 * <p>
+	 * <code>
+	 *   CommaSeparatedValue csv = CommaSeparatedValue.newInstance("hello,world");</br>
+	 *   csv.contains("hello") // return 'true'</br>
+	 *   csv.contains("Hello") // return 'false'</br>
+	 *   csv.contains(null)    // return 'false'</br>
+	 *  </code>
+	 * </p>
 	 *
 	 * @param target
 	 *            The target value to be found in the receiver. Might be empty,
