@@ -1,13 +1,14 @@
 package de.jsmithy.types;
 
 import java.util.*;
+import java.util.regex.*;
 
 import net.jcip.annotations.Immutable;
 
 /**
  * A simple domain type that holds a comma separated string value. The type is
  * able to count values, check whether it contains a given element and test
- * whether it matches a given pattern.
+ * whether it matches a given regular expression.
  * 
  * @author Erik Lotz
  * @since 2017-03-19
@@ -107,6 +108,35 @@ public final class CommaSeparatedValue {
 	 */
 	public boolean contains(String target) {
 		return values.contains(target);
+	}
+
+	/**
+	 * Answers whether the passed pattern value is matched by the receiver.
+	 * Example:</br>
+	 * <p>
+	 * <code>
+	 *   CommaSeparatedValue csv = CommaSeparatedValue.newInstance("hello,world");</br>
+	 *   csv.contains(Pattern.compile(".*orl.*")) // return 'true'</br>
+	 *   csv = CommaSeparatedValue.newInstance("1234,5678");</br>
+	 *   csv.contains(Pattern.compile("^[0-9,]*$")) // return 'true'</br>
+	 *  </code>
+	 * </p>
+	 * 
+	 * @param pattern
+	 *            A compiled {@link java.util.regex.Pattern} representing a
+	 *            regular expression.
+	 * @return 'true' or 'false'
+	 * @throws IllegalArgumentException
+	 *             In case the passed 'pattern' argument is 'null'.
+	 * 
+	 */
+	public boolean matches(Pattern pattern) {
+		if (pattern == null) {
+			throw new IllegalArgumentException("[pattern] must not be 'null'.");
+		}
+		Matcher matcher = pattern.matcher(getValue());
+
+		return matcher.matches();
 	}
 
 	@Override

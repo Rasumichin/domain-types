@@ -2,6 +2,8 @@ package de.jsmithy.types;
 
 import static org.junit.Assert.*;
 
+import java.util.regex.Pattern;
+
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 
@@ -179,5 +181,32 @@ public class CommaSeparatedValueTest {
 		boolean result = sut.contains(target);
 
 		assertFalse("Finding target '" + target + "' is not correct!", result);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testMatches_with_null() {
+		Pattern pattern = null;
+
+		sut.matches(pattern);
+	}
+
+	@Test
+	public void testMatches_true() {
+		// Pattern says - contains anything like "orl"?
+		Pattern pattern = Pattern.compile(".*orl.*");
+
+		boolean result = sut.matches(pattern);
+
+		assertTrue("Matching pattern '" + pattern + "' is not correct!", result);
+	}
+
+	@Test
+	public void testMatches_false() {
+		// Pattern says - comma separated values consist only of numbers?
+		Pattern pattern = Pattern.compile("^[0-9,]*$");
+
+		boolean result = sut.matches(pattern);
+
+		assertFalse("Matching pattern '" + pattern + "' is not correct!", result);
 	}
 }
