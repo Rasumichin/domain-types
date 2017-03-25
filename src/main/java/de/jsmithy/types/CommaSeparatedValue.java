@@ -1,5 +1,6 @@
 package de.jsmithy.types;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.regex.*;
 
@@ -15,8 +16,9 @@ import net.jcip.annotations.Immutable;
  *
  */
 @Immutable
-public final class CommaSeparatedValue {
+public final class CommaSeparatedValue implements Serializable {
 
+	private static final long serialVersionUID = -2755182258595649894L;
 	private static final Character DEFAULT_SEPARATOR = Character.valueOf(',');
 
 	private final List<String> values;

@@ -2,6 +2,7 @@ package de.jsmithy.types;
 
 import static org.junit.Assert.*;
 
+import java.io.Serializable;
 import java.util.regex.Pattern;
 
 import org.junit.*;
@@ -225,5 +226,12 @@ public class CommaSeparatedValueTest {
 		boolean result = sut.matches(pattern);
 
 		assertFalse("Matching pattern '" + pattern + "' is not correct!", result);
+	}
+
+	@Test
+	public void testIsSerializable() {
+		boolean result = sut instanceof Serializable;
+
+		assertTrue("Type is expected to be serializable!", result);
 	}
 }
