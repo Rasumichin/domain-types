@@ -22,9 +22,9 @@ public final class CommaSeparatedValue {
 	private final List<String> values;
 	private final String value;
 
-	private CommaSeparatedValue(String aValue) {
+	private CommaSeparatedValue(String aValue, Character separator) {
 		value = aValue;
-		values = splitIntoValuesUsing(aValue, DEFAULT_SEPARATOR);
+		values = splitIntoValuesUsing(aValue, separator);
 	}
 
 	List<String> splitIntoValuesUsing(String aValue, Character separator) {
@@ -38,7 +38,8 @@ public final class CommaSeparatedValue {
 	}
 
 	/**
-	 * Factory method to create an instance of the class.
+	 * Factory method to create an instance of the class. Uses the default
+	 * separator (',') character to split the values.
 	 * 
 	 * @param aValue
 	 *            The string containing the comma separated values. Might be
@@ -47,9 +48,31 @@ public final class CommaSeparatedValue {
 	 * 
 	 */
 	public static CommaSeparatedValue newInstance(String aValue) {
+		return CommaSeparatedValue.newInstance(aValue, DEFAULT_SEPARATOR);
+	}
+
+	/**
+	 * Factory method to create an instance of the class. Pass the separator
+	 * character to split the values.
+	 * 
+	 * @param aValue
+	 *            The string containing the comma separated values. Might be
+	 *            empty, blank or 'null'.
+	 * @param separator
+	 *            The character that should be used to split the values. Must
+	 *            not be 'null'.
+	 * @return An instance of the class.
+	 * @throws IllegalArgumentException
+	 *             In case the passed 'separator' argument is 'null'.
+	 * 
+	 */
+	public static CommaSeparatedValue newInstance(String aValue, Character separator) {
+		if (separator == null) {
+			throw new IllegalArgumentException("[separator] must not be 'null'.");
+		}
 		String csvString = (aValue == null) ? "" : aValue.trim();
 
-		return new CommaSeparatedValue(csvString);
+		return new CommaSeparatedValue(csvString, separator);
 	}
 
 	/**

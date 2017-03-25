@@ -40,6 +40,23 @@ public class CommaSeparatedValueTest {
 		assertNotNull("Instance creation is not correct!", sut);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testNewInstance_null_separator_character() {
+		Character separator = null;
+		CommaSeparatedValue.newInstance("test/driven/development", separator);
+	}
+
+	@Test
+	public void testNewInstance_pass_separator_character() {
+		Character separator = Character.valueOf('/');
+		CommaSeparatedValue sut = CommaSeparatedValue.newInstance("test/driven/development", separator);
+		int expected = 3;
+
+		int actual = sut.size();
+
+		assertEquals("Instance creation is not correct!", expected, actual);
+	}
+
 	@Test
 	public void testSize_equals_zero_for_empty_string_value() {
 		CommaSeparatedValue sut = CommaSeparatedValue.newInstance("");
