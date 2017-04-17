@@ -3,6 +3,7 @@ package de.jsmithy.types;
 import static org.junit.Assert.*;
 
 import java.io.Serializable;
+import java.util.StringJoiner;
 import java.util.regex.Pattern;
 
 import org.junit.*;
@@ -233,5 +234,38 @@ public class CommaSeparatedValueTest {
 		boolean result = sut instanceof Serializable;
 
 		assertTrue("Type is expected to be serializable!", result);
+	}
+
+	@Test
+	public void testIsIterable() {
+		boolean result = sut instanceof Iterable;
+
+		assertTrue("Type is expected to be iterable!", result);
+	}
+
+	@Test
+	public void testForEachLoop_count_iterations() {
+		int expected = 2;
+		int actual = 0;
+
+		for (@SuppressWarnings("unused")
+		String eachValue : sut) {
+			actual++;
+		}
+
+		assertEquals("Iterable is not implemented correctly!", expected, actual);
+	}
+
+	@Test
+	public void testForEachLoop_check_values() {
+		String expected = "hello,world";
+		StringJoiner joiner = new StringJoiner(",");
+
+		for (String eachValue : sut) {
+			joiner.add(eachValue);
+		}
+
+		String actual = joiner.toString();
+		assertEquals("Iterable is not implemented correctly!", expected, actual);
 	}
 }

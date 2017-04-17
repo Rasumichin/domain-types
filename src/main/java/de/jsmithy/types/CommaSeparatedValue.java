@@ -16,7 +16,7 @@ import net.jcip.annotations.Immutable;
  *
  */
 @Immutable
-public final class CommaSeparatedValue implements Serializable {
+public final class CommaSeparatedValue implements Serializable, Iterable<String> {
 
 	private static final long serialVersionUID = -2755182258595649894L;
 	private static final Character DEFAULT_SEPARATOR = Character.valueOf(',');
@@ -164,6 +164,11 @@ public final class CommaSeparatedValue implements Serializable {
 		Matcher matcher = pattern.matcher(getValue());
 
 		return matcher.matches();
+	}
+
+	@Override
+	public Iterator<String> iterator() {
+		return values.iterator();
 	}
 
 	@Override
